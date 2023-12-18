@@ -1,12 +1,11 @@
 // export default ShowResult;
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/auth";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useAuth } from "../context/auth";
 import Spinner from "./Spinner";
 
-const ShowResult = (props) => {
+const ShowResult = () => {
   const [auth, setauth] = useAuth();
   const [UserReport, setUserReport] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -14,12 +13,14 @@ const ShowResult = (props) => {
     const getUserScore = async () => {
       try {
         const { data } = await axios.post(
-          "http://localhost:4000/api/user/user-score",
+          "/api/v2/user-score",
           {
-            userId: "650812628436232011950836",
-            exam_name: "Register",
+            userId: auth.user._id,
+            exam_name: auth.type,
+            answer_id: auth.answer_id
           }
         );
+
         if (data) {
           setUserReport(data);
 
@@ -33,8 +34,8 @@ const ShowResult = (props) => {
           localStorage.clear();
         }
       } catch (error) {
-        console.log(error.message);
-        // window.location.href = "https://www.inboundacademy.in/";
+        // console.log(error.message);
+        window.location.href = "https://www.inboundacademy.in/";
       }
     };
     getUserScore();
@@ -85,7 +86,7 @@ const ShowResult = (props) => {
                             <span
                               className={
                                 UserReport.marks_Obtained >=
-                                UserReport.passing_marks
+                                  UserReport.passing_marks
                                   ? "pre_score"
                                   : "red_custom"
                               }
@@ -103,7 +104,7 @@ const ShowResult = (props) => {
                             <span
                               className={
                                 UserReport.marks_Obtained >=
-                                UserReport.passing_marks
+                                  UserReport.passing_marks
                                   ? "pre_score"
                                   : "red_custom"
                               }

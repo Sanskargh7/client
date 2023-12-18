@@ -1,14 +1,17 @@
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Question from "./components/Question";
 import ShowResult from "./components/ShowResult";
 import { useAuth } from "./context/auth";
 
-import Error from "./components/Error";
 import { ToastContainer } from "react-toastify";
 import Admin from "./components/Admin";
+import Error from "./components/Error";
+import ExamList from "./components/ExamList";
+import LoginWithPhone from "./components/LoginWithPhone";
+import Register from "./components/Register";
 import Spinner from "./components/Spinner";
 
 function App() {
@@ -37,9 +40,12 @@ function App() {
         <Route path={`/question`} element={<Question />}></Route>
         <Route path="/result" element={<ShowResult />}></Route>
         <Route path="/admin" element={<Admin />}></Route>
-
+        <Route path="/loginWithPhone" element={<LoginWithPhone />} />
         <Route path="/*" element={<Error />} />
         <Route path="/spinner" element={<Spinner />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/exams" exact element={<ExamList />} />
+
         {/* </Route> */}
       </Routes>
     </>
